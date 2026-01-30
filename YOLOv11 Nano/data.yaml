@@ -1,0 +1,10 @@
+# Define the paths to your training, validation, and test images
+train: /content/drive/MyDrive/YOLOv11_nano/data/train/images
+val: /content/drive/MyDrive/YOLOv11_nano/data/valid/images
+test: /content/drive/MyDrive/YOLOv11_nano/data/test/images
+
+# Number of classes
+nc: 1
+
+# Class names
+names: ['fracture']

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fracture Detection Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #c8e6c9);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #2e7d32;
+        }
+        .result {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        .result.no-fracture {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        .confidence {
+            font-size: 1.3rem;
+            color: #555;
+            margin: 15px 0;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #388e3c;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analysis Complete</h1>
+
+        <div class="result {% if prediction.lower() == 'no fracture' %}no-fracture{% endif %}">
+            <i class="fas {% if prediction.lower() == 'fracture' %}fa-bone-broken{% else %}fa-heart{% endif %}"></i>
+            {{ prediction }}
+        </div>
+
+        {% if confidence %}
+        <div class="confidence">
+            Confidence: <strong>{{ confidence }}</strong>
+        </div>
+        {% endif %}
+
+        <p>Detected regions are highlighted in the image below:</p>
+        <img src="{{ url_for('static', filename=image_path) }}" alt="Detection Result">
+
+        <a href="/" class="btn">Analyze Another Image</a>
+    </div>
+</body>
+</html>
